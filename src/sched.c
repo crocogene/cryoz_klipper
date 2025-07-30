@@ -18,7 +18,7 @@
 #include <stdio.h> //snprintf
 
 //Debug timer too close errors
-#define sched_add_timer(timer) sched_add_timer_debug(timer, __func__, __LINE__)
+//#define sched_add_timer(timer) sched_add_timer_debug(timer, __func__, __LINE__)
 
 static struct timer periodic_timer, sentinel_timer, deleted_timer;
 
@@ -117,10 +117,10 @@ sched_add_timer_debug(struct timer *add, const char *calledby, int line)
     uint32_t waketime = add->waketime;
     irqstatus_t flag = irq_save();
     struct timer *tl = SchedStatus.timer_list;
+    char reason[64];
     if (unlikely(timer_is_before(waketime, tl->waketime))) {
         // This timer is before all other scheduled timers
         if (timer_is_before(waketime, timer_read_time()))
-            char reason[64];
             snprintf(reason, sizeof(reason), "Timer too close, called by %s(%d)", calledby, line);            
             try_shutdown(reason);
         if (tl == &deleted_timer)
