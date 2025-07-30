@@ -48,4 +48,4 @@ void sched_main(void);
 #endif // sched.h
 
 //Debug timer too close errors
-#define sched_add_timer(struct timer*) sched_add_timer_debug(struct timer*, __func__, __LINE__)
+#define sched_add_timer(timer) sched_add_timer_debug(timer, __func__, __LINE__)
