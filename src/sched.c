@@ -17,6 +17,9 @@
 
 #include <stdio.h> //snprintf
 
+//Debug timer too close errors
+#define sched_add_timer(timer) sched_add_timer_debug(timer, __func__, __LINE__)
+
 static struct timer periodic_timer, sentinel_timer, deleted_timer;
 
 static struct {
@@ -133,6 +136,7 @@ sched_add_timer_debug(struct timer *add, const char *calledby, int line)
     }
     irq_restore(flag);
 }
+
 
 // The deleted timer is used when deleting an active timer.
 static uint_fast8_t
