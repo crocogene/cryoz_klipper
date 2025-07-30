@@ -65,6 +65,7 @@ command_config_analog_in(uint32_t *args)
     struct analog_in *a = oid_alloc(
         args[0], command_config_analog_in, sizeof(*a));
     a->timer.func = analog_in_event;
+    a->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer ANALOG_IN too close");
     a->pin = pin;
     a->state = 1;
 }
