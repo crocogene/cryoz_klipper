@@ -57,7 +57,7 @@ command_config_counter(uint32_t *args)
         args[0], command_config_counter, sizeof(*c));
     c->pin = gpio_in_setup(args[1], args[2]);
     c->timer.func = counter_event;
-    c->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer PULSE_COUNTER too close");
+    c->timer.too_close_shutdown_reason = TOO_CLOSE_PULSE_COUNTER;
 }
 DECL_COMMAND(command_config_counter,
              "config_counter oid=%c pin=%u pull_up=%c");

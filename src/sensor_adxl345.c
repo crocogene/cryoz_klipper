@@ -43,7 +43,7 @@ command_config_adxl345(uint32_t *args)
     struct adxl345 *ax = oid_alloc(args[0], command_config_adxl345
                                    , sizeof(*ax));
     ax->timer.func = adxl345_event;
-    ax->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer ADXL345 too close");
+    ax->timer.too_close_shutdown_reason = TOO_CLOSE_ADXL345;
     ax->spi = spidev_oid_lookup(args[1]);
 }
 DECL_COMMAND(command_config_adxl345, "config_adxl345 oid=%c spi_oid=%c");

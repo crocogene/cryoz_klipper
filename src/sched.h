@@ -4,6 +4,8 @@
 #include <stdint.h> // uint32_t
 #include "ctr.h" // DECL_CTR
 
+#include "command.h" // _DECL_STATIC_STR
+
 // Declare an init function (called at firmware startup)
 #define DECL_INIT(FUNC) _DECL_CALLLIST(ctr_run_initfuncs, FUNC)
 // Declare a task function (called periodically during normal runtime)
@@ -48,3 +50,23 @@ void sched_main(void);
 
 #endif // sched.h
 
+#define TOO_CLOSE_UNKNOWN _DECL_STATIC_STR("Timer UNKNOWN too close")
+#define TOO_CLOSE_ANALOG_IN _DECL_STATIC_STR("Timer ANALOG_IN too close")
+#define TOO_CLOSE_ANALOG_IN_SHUTDOWN _DECL_STATIC_STR("Timer ANALOG_IN_SHUTDOWN too close")
+#define TOO_CLOSE_QUEUE_DIGITAL_OUT _DECL_STATIC_STR("Timer QUEUE_DIGITAL_OUT too close")
+#define TOO_CLOSE_UPDATE_DIGITAL_OUT _DECL_STATIC_STR("Timer UPDATE_DIGITAL_OUT too close")
+#define TOO_CLOSE_PULSE_COUNTER _DECL_STATIC_STR("Timer PULSE_COUNTER too close")
+#define TOO_CLOSE_PWM _DECL_STATIC_STR("Timer PWM too close")
+#define TOO_CLOSE_ADS1220 _DECL_STATIC_STR("Timer ADS1220 too close")
+#define TOO_CLOSE_ADXL345 _DECL_STATIC_STR("Timer ADXL345 too close")
+#define TOO_CLOSE_SENSOR_ANGLE _DECL_STATIC_STR("Timer SENSOR_ANGLE too close")
+#define TOO_CLOSE_HX71X _DECL_STATIC_STR("Timer HX71X too close")
+#define TOO_CLOSE_ICM20948 _DECL_STATIC_STR("Timer ICM20948 too close")
+#define TOO_CLOSE_LDC1612 _DECL_STATIC_STR("Timer LDC1612 too close")
+#define TOO_CLOSE_LIS2DW _DECL_STATIC_STR("Timer LIS2DW too close")
+#define TOO_CLOSE_MPU9250 _DECL_STATIC_STR("Timer MPU9250 too close")
+#define TOO_CLOSE_THERMOCOUPLE _DECL_STATIC_STR("Timer THERMOCOUPLE too close")
+#define TOO_CLOSE_TMCUART_SEND_SYNC _DECL_STATIC_STR("Timer TMCUART_SEND_SYNC too close")
+#define TOO_CLOSE_TMCUART_SEND _DECL_STATIC_STR("Timer TMCUART_SEND too close")
+#define TOO_CLOSE_PCA9685 _DECL_STATIC_STR("Timer PCA9685 too close")
+#define TOO_CLOSE_DS18B20 _DECL_STATIC_STR("Timer DS18B20 too close")

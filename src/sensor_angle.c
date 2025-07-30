@@ -75,7 +75,7 @@ command_config_spi_angle(uint32_t *args)
     struct spi_angle *sa = oid_alloc(args[0], command_config_spi_angle
                                      , sizeof(*sa));
     sa->timer.func = angle_event;
-    sa->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer SENSOR_ANGLE too close");
+    sa->timer.too_close_shutdown_reason = TOO_CLOSE_SENSOR_ANGLE;
     sa->spi = spidev_oid_lookup(args[1]);
     if (!spidev_have_cs_pin(sa->spi))
         shutdown("angle sensor requires cs pin");

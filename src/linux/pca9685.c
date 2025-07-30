@@ -228,7 +228,7 @@ command_queue_pca9685_out(uint32_t *args)
         && timer_is_before(p->timer.waketime, m->waketime))
         shutdown("Scheduled pca9685 event will exceed max_duration");
     p->timer.func = pca9685_event;
-    p->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer PCA9685 too close");    
+    p->timer.too_close_shutdown_reason = TOO_CLOSE_PCA_9685;    
     p->timer.waketime = m->waketime;
     sched_add_timer(&p->timer);
 }

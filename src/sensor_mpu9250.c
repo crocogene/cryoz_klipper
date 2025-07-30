@@ -56,7 +56,7 @@ command_config_mpu9250(uint32_t *args)
     struct mpu9250 *mp = oid_alloc(args[0], command_config_mpu9250
                                    , sizeof(*mp));
     mp->timer.func = mpu9250_event;
-    mp->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer MPU9250 too close");
+    mp->timer.too_close_shutdown_reason = TOO_CLOSE_MPU9250;
     mp->i2c = i2cdev_oid_lookup(args[1]);
 }
 DECL_COMMAND(command_config_mpu9250, "config_mpu9250 oid=%c i2c_oid=%c");

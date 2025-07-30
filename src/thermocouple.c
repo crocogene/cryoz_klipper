@@ -57,7 +57,7 @@ command_config_thermocouple(uint32_t *args)
     struct thermocouple_spi *spi = oid_alloc(
         args[0], command_config_thermocouple, sizeof(*spi));
     spi->timer.func = thermocouple_event;
-    spi->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer THERMOCOUPLE too close");
+    spi->timer.too_close_shutdown_reason = TOO_CLOSE_THERMOCOUPLE;
     spi->spi = spidev_oid_lookup(args[1]);
     spi->chip_type = chip_type;
 }

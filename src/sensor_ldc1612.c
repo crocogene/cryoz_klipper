@@ -65,7 +65,7 @@ command_config_ldc1612(uint32_t *args)
     struct ldc1612 *ld = oid_alloc(args[0], command_config_ldc1612
                                    , sizeof(*ld));
     ld->timer.func = ldc1612_event;
-    ld->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer LDC1612 too close");
+    ld->timer.too_close_shutdown_reason = TOO_CLOSE_LDC1612;
     ld->i2c = i2cdev_oid_lookup(args[1]);
 }
 DECL_COMMAND(command_config_ldc1612, "config_ldc1612 oid=%c i2c_oid=%c");

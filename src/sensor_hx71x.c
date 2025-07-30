@@ -193,7 +193,7 @@ command_config_hx71x(uint32_t *args)
     struct hx71x_adc *hx71x = oid_alloc(args[0]
                 , command_config_hx71x, sizeof(*hx71x));
     hx71x->timer.func = hx71x_event;
-    hx71x->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer HX71X too close");
+    hx71x->timer.too_close_shutdown_reason = TOO_CLOSE_HX71X;
     uint8_t gain_channel = args[1];
     if (gain_channel < 1 || gain_channel > 4) {
         shutdown("HX71x gain/channel out of range 1-4");
