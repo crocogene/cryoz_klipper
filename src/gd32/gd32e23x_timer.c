@@ -72,13 +72,13 @@ timer_event(struct timer *t)
 }
 static struct timer wrap_timer = {
     .func = timer_event,
-    .too_close_shutdown_reason = TOO_CLOSE_GD32E23X_WRAP,
     .waketime = 0x8000,
 };
 
 void
 timer_reset(void)
 {
+    wrap_timer.too_close_shutdown_reason = TOO_CLOSE_GD32E23X_WRAP;
     sched_add_timer(&wrap_timer);
 }
 DECL_SHUTDOWN(timer_reset);
