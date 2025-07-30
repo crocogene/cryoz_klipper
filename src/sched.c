@@ -95,7 +95,7 @@ sched_add_timer(struct timer *add)
             if (add->too_close_shutdown_reason != 0) 
                 sched_try_shutdown(add->too_close_shutdown_reason);
             else 
-                try_shutdown("Timer too close");    
+                try_shutdown("Timer tooo close");    
         }
         if (tl == &deleted_timer)
             add->next = deleted_timer.next;
