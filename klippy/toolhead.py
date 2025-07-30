@@ -504,11 +504,15 @@ class ToolHead:
         self._check_pause()
 
     def wait_moves(self):
+        logging.info("wait_moves: _flush_lookahead...")
         self._flush_lookahead()
         eventtime = self.reactor.monotonic()
+        counter = 0
         while (not self.special_queuing_state or self.print_time >= self.mcu.estimated_print_time(eventtime)):
             if not self.can_pause:
                 break
+            counter = counter + 1
+            logging.info("wait_moves: pause reactor " + str(counter) + "...")
             eventtime = self.reactor.pause(eventtime + 0.100)
 
     def set_extruder(self, extruder, extrude_pos):
