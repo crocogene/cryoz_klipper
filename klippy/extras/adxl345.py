@@ -42,6 +42,7 @@ class AccelQueryHelper:
     def finish_measurements(self):
         toolhead = self.printer.lookup_object('toolhead')
         self.request_end_time = toolhead.get_last_move_time()
+        logging.info("ADXL345 finish_measurements")
         toolhead.wait_moves()
         self.is_finished = True
     def handle_batch(self, msg):

@@ -513,7 +513,7 @@ class ToolHead:
                 break
             counter = counter + 1
             logging.info("wait_moves: pause reactor " + str(counter) + "...")
-            eventtime = self.reactor.pause(eventtime + 0.100)
+            eventtime = self.reactor.pause(eventtime + 0.500) #было 0.100
 
     def set_extruder(self, extruder, extrude_pos):
         # XXX - should use add_extra_axis
@@ -706,6 +706,7 @@ class ToolHead:
         self.dwell(delay)
 
     def cmd_M400(self, gcmd):
+        logging.info("cmd_M400...")
         # Wait for current moves to finish
         self.wait_moves()
 

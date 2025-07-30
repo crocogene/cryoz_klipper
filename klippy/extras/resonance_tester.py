@@ -244,6 +244,7 @@ class ResonanceTester:
                 gcmd.respond_info(
                         "Probing point (%.3f, %.3f, %.3f)" % tuple(point))
             for axis in axes:
+                logging.info("ResonanceTester: _run_test...")
                 toolhead.wait_moves()
                 toolhead.dwell(0.500)
                 if len(axes) > 1:
