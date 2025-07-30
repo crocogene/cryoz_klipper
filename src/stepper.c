@@ -282,7 +282,7 @@ command_queue_step(uint32_t *args)
         s->flags = flags;
         move_queue_push(&m->node, &s->mq);
         stepper_load_next(s);
-        s->time.too_close_shutdown_reason = TOO_CLOSE_STEPPER
+        s->time.too_close_shutdown_reason = TOO_CLOSE_STEPPER;
         sched_add_timer(&s->time);
     }
     irq_enable();
