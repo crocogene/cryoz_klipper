@@ -114,15 +114,15 @@ sched_add_timer(struct timer *add)
 void
 sched_add_timer_debug(struct timer *add, const char *calledby, int line)
 {
+    uint_fast8_t shutdown_reason[64];
     uint32_t waketime = add->waketime;
     irqstatus_t flag = irq_save();
     struct timer *tl = SchedStatus.timer_list;
-    char reason[64];
     if (unlikely(timer_is_before(waketime, tl->waketime))) {
         // This timer is before all other scheduled timers
         if (timer_is_before(waketime, timer_read_time()))
-            snprintf(reason, sizeof(reason), "Timer too close, called by %s(%d)", calledby, line);            
-            try_shutdown(reason);
+            snprintf(shutdown_reason, sizeof(shutdown_reason), "Timer too close, called by %s(%d)", calledby, line);            
+            try_shutdown(shutdown_reason);
         if (tl == &deleted_timer)
             add->next = deleted_timer.next;
         else
