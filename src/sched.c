@@ -91,11 +91,12 @@ sched_add_timer(struct timer *add)
     struct timer *tl = SchedStatus.timer_list;
     if (unlikely(timer_is_before(waketime, tl->waketime))) {
         // This timer is before all other scheduled timers
-        if (timer_is_before(waketime, timer_read_time()))
+        if (timer_is_before(waketime, timer_read_time())) {
             if (add->too_close_shutdown_reason) 
                 sched_try_shutdown(add->too_close_shutdown_reason);
             else 
                 try_shutdown("Timer too close");    
+        }
         if (tl == &deleted_timer)
             add->next = deleted_timer.next;
         else
