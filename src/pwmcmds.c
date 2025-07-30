@@ -99,6 +99,7 @@ command_queue_pwm_out(uint32_t *args)
         && timer_is_before(p->timer.waketime, m->waketime))
         shutdown("Scheduled pwm event will exceed max_duration");
     p->timer.func = pwm_event;
+    p->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer PWM too close");
     p->timer.waketime = m->waketime;
     sched_add_timer(&p->timer);
 }

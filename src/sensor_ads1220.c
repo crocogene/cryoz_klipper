@@ -111,6 +111,7 @@ command_config_ads1220(uint32_t *args)
     struct ads1220_adc *ads1220 = oid_alloc(args[0]
                 , command_config_ads1220, sizeof(*ads1220));
     ads1220->timer.func = ads1220_event;
+    ads1220->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer ADS1220 too close");
     ads1220->pending_flag = 0;
     ads1220->spi = spidev_oid_lookup(args[1]);
     ads1220->data_ready = gpio_in_setup(args[2], 0);
@@ -143,7 +144,7 @@ command_query_ads1220(uint32_t *args)
     // Start new measurements
     sensor_bulk_reset(&ads1220->sb);
     irq_disable();
-    ads1220->timer.waketime = timer_read_time() + ads1220->rest_ticks;
+    ads1220->timer.waketime = timer_read_time() + ads1220->rest_ticks;    
     sched_add_timer(&ads1220->timer);
     irq_enable();
 }

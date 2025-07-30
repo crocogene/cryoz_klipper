@@ -167,6 +167,7 @@ command_queue_digital_out(uint32_t *args)
         sched_del_timer(&d->timer);
         d->timer.waketime = time;
         d->timer.func = digital_load_event;
+        d->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer QUEUE_DIGITAL_OUT too close");
         sched_add_timer(&d->timer);
     }
     irq_enable();
@@ -186,6 +187,7 @@ command_update_digital_out(uint32_t *args)
     if (!on_flag != !(flags & DF_DEFAULT_ON) && d->max_duration) {
         d->timer.waketime = d->end_time = timer_read_time() + d->max_duration;
         d->timer.func = digital_load_event;
+        d->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer UPDATE_DIGITAL_OUT too close");
         d->flags = (flags & DF_DEFAULT_ON) | on_flag | DF_CHECK_END;
         sched_add_timer(&d->timer);
     } else {

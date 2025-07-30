@@ -130,6 +130,7 @@ analog_in_shutdown(void)
             a->state = a->sample_count + 1;
             a->next_begin_time += a->rest_time;
             a->timer.waketime = a->next_begin_time;
+            a->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer ANALOG_IN_SHUTDOWN too close");
             sched_add_timer(&a->timer);
         }
     }

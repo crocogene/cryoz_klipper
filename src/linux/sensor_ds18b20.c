@@ -158,6 +158,7 @@ command_config_ds18b20(uint32_t *args)
     d->max_error_count = args[3];
     d->error_count = 0;
     d->timer.func = ds18_event;
+    d->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer DS18B20 too close");    
     d->fd = fd;
     d->status = W1_IDLE;
     int ret;

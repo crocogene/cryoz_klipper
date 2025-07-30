@@ -206,9 +206,11 @@ command_tmcuart_send(uint32_t *args)
     t->read_count = read_len * 8;
     if (write_len >= 1 && (t->data[0] & 0x3f) == 0x2a) {
         t->timer.func = tmcuart_send_sync_event;
+        t->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer TMCUART_SEND_SYNC too close");
     } else {
         t->bit_time = t->cfg_bit_time;
         t->timer.func = tmcuart_send_event;
+        t->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer TMCUART_SEND too close");
     }
     irq_disable();
     t->timer.waketime = timer_read_time() + timer_from_us(200);

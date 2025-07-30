@@ -57,6 +57,7 @@ command_config_icm20948(uint32_t *args)
     struct icm20948 *ic = oid_alloc(args[0], command_config_icm20948
                                    , sizeof(*ic));
     ic->timer.func = icm20948_event;
+    ic->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer ICM20948 too close");
     ic->i2c = i2cdev_oid_lookup(args[1]);
 }
 DECL_COMMAND(command_config_icm20948, "config_icm20948 oid=%c i2c_oid=%c");

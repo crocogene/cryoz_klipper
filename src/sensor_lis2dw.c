@@ -74,6 +74,7 @@ command_config_lis2dw(uint32_t *args)
     struct lis2dw *ax = oid_alloc(args[0], command_config_lis2dw
                                    , sizeof(*ax));
     ax->timer.func = lis2dw_event;
+    ax->timer.too_close_shutdown_reason = _DECL_STATIC_STR("Timer LIS2DW too close");
 
     switch (args[2]) {
         case SPI_SERIAL:
