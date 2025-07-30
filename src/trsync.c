@@ -72,7 +72,9 @@ command_config_trsync(uint32_t *args)
 {
     struct trsync *ts = oid_alloc(args[0], command_config_trsync, sizeof(*ts));
     ts->report_time.func = trsync_report_event;
+    ts->report_time.too_close_shutdown_reason = TOO_CLOSE_TRSYNC_REPORT;
     ts->expire_time.func = trsync_expire_event;
+    ts->expire_time.too_close_shutdown_reason = TOO_CLOSE_TRSYNC_EXPIRE;
 }
 DECL_COMMAND(command_config_trsync, "config_trsync oid=%c");
 

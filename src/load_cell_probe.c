@@ -276,6 +276,7 @@ command_load_cell_probe_home(uint32_t *args)
     lce->watchdog_max = args[6];
     lce->watchdog_count = 0;
     lce->time.func = watchdog_event;
+    lce->time.too_close_shutdown_reason = TOO_CLOSE_LCP_HOME;
     set_flag(FLAG_IS_HOMING, lce);
     set_flag(FLAG_AWAIT_HOMING, lce);
     sched_add_timer(&lce->time);

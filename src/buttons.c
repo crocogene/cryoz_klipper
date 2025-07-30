@@ -80,6 +80,7 @@ command_config_buttons(uint32_t *args)
         , sizeof(*b) + sizeof(b->pins[0]) * button_count);
     b->button_count = button_count;
     b->time.func = buttons_event;
+    b->time.too_close_shutdown_reason = TOO_CLOSE_BUTTONS;
 }
 DECL_COMMAND(command_config_buttons, "config_buttons oid=%c button_count=%c");
 

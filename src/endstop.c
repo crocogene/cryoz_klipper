@@ -88,6 +88,7 @@ command_endstop_home(uint32_t *args)
     }
     e->rest_time = args[4];
     e->time.func = endstop_event;
+    e->time.too_close_shutdown_reason = TOO_CLOSE_ENDSTOP;
     e->trigger_count = e->sample_count;
     e->flags = ESF_HOMING | (args[5] ? ESF_PIN_HIGH : 0);
     e->ts = trsync_oid_lookup(args[6]);

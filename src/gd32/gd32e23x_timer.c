@@ -72,6 +72,7 @@ timer_event(struct timer *t)
 }
 static struct timer wrap_timer = {
     .func = timer_event,
+    .too_close_shutdown_reason = TOO_CLOSE_GD32E23X_WRAP,
     .waketime = 0x8000,
 };
 

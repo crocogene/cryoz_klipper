@@ -78,6 +78,7 @@ timer_wrap_event(struct timer *t)
 }
 static struct timer wrap_timer = {
     .func = timer_wrap_event,
+    .too_close_shutdown_reason = TOO_CLOSE_ARMCM_WRAP,
     .waketime = 0xffffff,
 };
 void
