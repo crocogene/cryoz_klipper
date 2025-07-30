@@ -15,10 +15,6 @@
 #include "sched.h" // sched_check_periodic
 #include "stepper.h" // stepper_event
 
-#include <stdio.h> //snprintf
-
-//Debug timer too close errors
-//#define sched_add_timer(timer) sched_add_timer_debug(timer, __func__, __LINE__)
 
 static struct timer periodic_timer, sentinel_timer, deleted_timer;
 
@@ -96,33 +92,11 @@ sched_add_timer(struct timer *add)
     if (unlikely(timer_is_before(waketime, tl->waketime))) {
         // This timer is before all other scheduled timers
         if (timer_is_before(waketime, timer_read_time()))
-            try_shutdown("Timer too close");
-        if (tl == &deleted_timer)
-            add->next = deleted_timer.next;
-        else
-            add->next = tl;
-        deleted_timer.waketime = waketime;
-        deleted_timer.next = add;
-        SchedStatus.timer_list = &deleted_timer;
-        timer_kick();
-    } else {
-        insert_timer(tl, add, waketime);
-    }
-    irq_restore(flag);
-}
-
-void
-sched_add_timer_debug(struct timer *add, const char *calledby, int line)
-{
-    uint_fast8_t shutdown_reason[64];
-    uint32_t waketime = add->waketime;
-    irqstatus_t flag = irq_save();
-    struct timer *tl = SchedStatus.timer_list;
-    if (unlikely(timer_is_before(waketime, tl->waketime))) {
-        // This timer is before all other scheduled timers
-        if (timer_is_before(waketime, timer_read_time()))
-            snprintf(shutdown_reason, sizeof(shutdown_reason), "Timer too close, called by %s(%d)", calledby, line);            
-            try_shutdown(shutdown_reason);
+            if (add->too_close_shutdown_reason) {
+                sched_try_shutdown(add->too_close_shutdown_reason);
+            } else {
+                try_shutdown("Timer too close");
+            }    
         if (tl == &deleted_timer)
             add->next = deleted_timer.next;
         else

@@ -16,6 +16,7 @@ struct timer {
     struct timer *next;
     uint_fast8_t (*func)(struct timer*);
     uint32_t waketime;
+    uint_fast8_t too_close_shutdown_reason; //debug "Timer too close" error
 };
 
 enum { SF_DONE=0, SF_RESCHEDULE=1 };
@@ -46,7 +47,4 @@ void sched_main(void);
     DECL_CTR("_DECL_CALLLIST " __stringify(NAME) " " __stringify(FUNC))
 
 #endif // sched.h
-
-//Debug timer too close errors
-void sched_add_timer_debug(struct timer*, const char *calledby, int line);
 
