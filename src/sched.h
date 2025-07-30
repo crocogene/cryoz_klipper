@@ -46,3 +46,6 @@ void sched_main(void);
     DECL_CTR("_DECL_CALLLIST " __stringify(NAME) " " __stringify(FUNC))
 
 #endif // sched.h
+
+//Debug timer too close errors
+#define sched_add_timer(struct timer*) sched_add_timer_debug(struct timer*, __func__, __LINE__)
