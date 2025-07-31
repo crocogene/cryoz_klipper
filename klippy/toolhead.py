@@ -49,7 +49,7 @@ class Move:
         self.max_smoothed_v2 = 0.
         self.smooth_delta_v2 = 2.0 * move_d * toolhead.max_accel_to_decel
         self.next_junction_v2 = 999999999.9
-        self.is_waiting_moves = False
+
 
     def limit_speed(self, speed, accel):
         speed2 = speed**2
@@ -243,6 +243,7 @@ class ToolHead:
         self.can_pause = True
         #if self.mcu.is_fileoutput():
         #    self.can_pause = False
+        self.is_waiting_moves = False
         self.need_check_pause = -1.
         # Print time tracking
         self.print_time = 0.
