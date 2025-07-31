@@ -19,6 +19,7 @@ struct timer {
     uint_fast8_t (*func)(struct timer*);
     uint32_t waketime;
     uint_fast8_t too_close_shutdown_reason; //debug "Timer too close" error
+    bool no_shutdown;
 };
 
 enum { SF_DONE=0, SF_RESCHEDULE=1 };
