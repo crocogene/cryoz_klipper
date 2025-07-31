@@ -501,6 +501,7 @@ class ToolHead:
         self.printer.send_event("toolhead:manual_move")
 
     def dwell(self, delay):
+        logging.info("Toolhead dwelled for " + str(delay))
         next_print_time = self.get_last_move_time() + max(0., delay)
         self._advance_move_time(next_print_time)
         self._check_pause()
