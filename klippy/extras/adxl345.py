@@ -103,6 +103,7 @@ class AccelQueryHelper:
         write_proc = multiprocessing.Process(target=write_impl)
         write_proc.daemon = True
         write_proc.start()
+        write_proc.join() #wait write process to finish
 
 # Helper class for G-Code commands
 class AccelCommandHelper:
