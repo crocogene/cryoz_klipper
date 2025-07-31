@@ -96,7 +96,7 @@ sched_add_timer(struct timer *add)
         int32_t time_diff = (int32_t)(waketime - now);
         //if (timer_is_before(waketime, timer_read_time())) {
         if (time_diff < 0) {
-            if (time_diff < -50) 
+            if (time_diff < -100) 
                 sched_try_shutdown(add->too_close_shutdown_reason);
             else
                 waketime = now;                
