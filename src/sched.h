@@ -2,6 +2,7 @@
 #define __SCHED_H
 
 #include <stdint.h> // uint32_t
+#include <stdbool.h> //bool
 #include "ctr.h" // DECL_CTR
 
 #include "command.h" // _DECL_STATIC_STR
