@@ -49,6 +49,7 @@ class Move:
         self.max_smoothed_v2 = 0.
         self.smooth_delta_v2 = 2.0 * move_d * toolhead.max_accel_to_decel
         self.next_junction_v2 = 999999999.9
+        self.is_waiting_moves = False
 
     def limit_speed(self, speed, accel):
         speed2 = speed**2
@@ -504,6 +505,10 @@ class ToolHead:
         self._check_pause()
 
     def wait_moves(self):
+        if self.is_waiting_moves:
+            logging.info("wait_moves: already waiting, skip")
+            return
+        self.is_waiting_moves = True    
         logging.info("wait_moves: _flush_lookahead...")
         self._flush_lookahead()
         eventtime = self.reactor.monotonic()
@@ -512,8 +517,9 @@ class ToolHead:
             if not self.can_pause or self.mcu.is_fileoutput():
                 break
             counter = counter + 1
-            logging.info("wait_moves: pause reactor " + str(counter) + "...")
+            logging.info("wait_moves: pause reactor, attempt " + str(counter) + "...")
             eventtime = self.reactor.pause(eventtime + 0.500) #было 0.100
+        self.is_waiting_moves = False    
         logging.info("wait_moves: done")
 
     def set_extruder(self, extruder, extrude_pos):
