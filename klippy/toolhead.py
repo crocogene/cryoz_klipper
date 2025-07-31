@@ -240,8 +240,8 @@ class ToolHead:
         self.print_stall = 0
         # Input pause tracking
         self.can_pause = True
-        if self.mcu.is_fileoutput():
-            self.can_pause = False
+        #if self.mcu.is_fileoutput():
+        #    self.can_pause = False
         self.need_check_pause = -1.
         # Print time tracking
         self.print_time = 0.
@@ -304,7 +304,7 @@ class ToolHead:
         self.min_restart_time = max(self.min_restart_time, sg_flush_time)
         # Free trapq entries that are no longer needed
         clear_history_time = self.clear_history_time
-        if not self.can_pause:
+        if not self.can_pause or self.mcu.is_fileoutput():
             clear_history_time = flush_time - MOVE_HISTORY_EXPIRE
         free_time = sg_flush_time - self.kin_flush_delay
         for trapq in self.flush_trapqs:
@@ -405,7 +405,7 @@ class ToolHead:
             pause_time = buffer_time - BUFFER_TIME_HIGH
             if pause_time <= 0.:
                 break
-            if not self.can_pause:
+            if not self.can_pause or self.mcu.is_fileoutput():
                 self.need_check_pause = self.reactor.NEVER
                 return
             eventtime = self.reactor.pause(eventtime + min(1., pause_time))
@@ -509,11 +509,12 @@ class ToolHead:
         eventtime = self.reactor.monotonic()
         counter = 0
         while (not self.special_queuing_state or self.print_time >= self.mcu.estimated_print_time(eventtime)):
-            if not self.can_pause:
+            if not self.can_pause or self.mcu.is_fileoutput():
                 break
             counter = counter + 1
             logging.info("wait_moves: pause reactor " + str(counter) + "...")
             eventtime = self.reactor.pause(eventtime + 0.500) #было 0.100
+        logging.info("wait_moves: done")
 
     def set_extruder(self, extruder, extrude_pos):
         # XXX - should use add_extra_axis
@@ -570,7 +571,7 @@ class ToolHead:
             curtime = self.reactor.monotonic()
             est_print_time = self.mcu.estimated_print_time(curtime)
             wait_time = self.print_time - est_print_time - flush_delay
-            if wait_time > 0. and self.can_pause:
+            if wait_time > 0. and self.can_pause and not self.mcu.is_fileoutput():
                 # Pause before sending more steps
                 drip_completion.wait(curtime + wait_time)
                 continue
