@@ -97,9 +97,9 @@ sched_add_timer(struct timer *add)
         //if (timer_is_before(waketime, timer_read_time())) {
         if (time_diff < 0) {
             //if (time_diff < -100000) 
-            //    sched_try_shutdown(add->too_close_shutdown_reason);
+            sched_try_shutdown(add->too_close_shutdown_reason);
             //else
-            waketime = now;                
+            //waketime = now;                
         } 
         if (tl == &deleted_timer)
             add->next = deleted_timer.next;

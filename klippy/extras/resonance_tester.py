@@ -147,6 +147,7 @@ class ResonanceTestExecutor:
             input_shaper = None
         last_v = last_t = last_accel = last_freq = 0.
         for next_t, accel, freq in test_seq:
+            gcmd.respond_info("Testing frequency %.0f Hz" % (freq,)) #вывод перед тестированием
             t_seg = next_t - last_t
             toolhead.cmd_M204(self.gcode.create_gcode_command(
                 "M204", "M204", {"S": abs(accel)}))
@@ -171,9 +172,10 @@ class ResonanceTestExecutor:
                 toolhead.move([nX, nY] + tpos[2:], abs_v)
             else:
                 toolhead.move([nX, nY] + tpos[2:], max(abs_v, abs_last_v))
-            if math.floor(freq) > math.floor(last_freq):
-                gcmd.respond_info("Testing frequency %.0f Hz" % (freq,))
-                reactor.pause(reactor.monotonic() + 0.01)
+            #if math.floor(freq) > math.floor(last_freq):
+            #    gcmd.respond_info("Testing frequency %.0f Hz" % (freq,))
+            #    reactor.pause(reactor.monotonic() + 0.01)
+            reactor.pause(reactor.monotonic() + 0.01) #условие не нужно
             X, Y = nX, nY
             last_t = next_t
             last_v = v
@@ -246,7 +248,7 @@ class ResonanceTester:
             for axis in axes:
                 logging.info("ResonanceTester: _run_test for axis")
                 toolhead.wait_moves()
-                toolhead.dwell(1.000) #было 0.500
+                toolhead.dwell(2.000) #было 0.500
                 if len(axes) > 1:
                     gcmd.respond_info("Testing axis %s" % axis.get_name())
 
