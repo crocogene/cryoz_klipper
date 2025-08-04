@@ -245,7 +245,6 @@ class ResonanceTester:
                 gcmd.respond_info(
                         "Probing point (%.3f, %.3f, %.3f)" % tuple(point))
             for axis in axes:
-                logging.info("ResonanceTester: _run_test for axis")
                 toolhead.wait_moves()
                 toolhead.dwell(1.000) #было 0.500
                 if len(axes) > 1:
@@ -265,7 +264,7 @@ class ResonanceTester:
                 # Generate moves
                 test_seq = self.generator.gen_test()
                 self.executor.run_test(test_seq, axis, gcmd)
-                toolhead.wait_moves() #дождаться завершения движений
+                #toolhead.wait_moves() #дождаться завершения движений
                 for chip_axis, aclient, chip_name in raw_values:
                     aclient.finish_measurements()
                     if raw_name_suffix is not None:
