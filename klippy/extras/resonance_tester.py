@@ -264,7 +264,7 @@ class ResonanceTester:
                 # Generate moves
                 test_seq = self.generator.gen_test()
                 self.executor.run_test(test_seq, axis, gcmd)
-                #toolhead.wait_moves() #дождаться завершения движений
+                toolhead.wait_moves() #дождаться завершения движений
                 for chip_axis, aclient, chip_name in raw_values:
                     aclient.finish_measurements()
                     if raw_name_suffix is not None:
