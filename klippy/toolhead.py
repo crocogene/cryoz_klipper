@@ -205,7 +205,7 @@ BGFLUSH_EXTRA_TIME = 0.250
 MIN_KIN_TIME = 0.100
 MOVE_BATCH_TIME = 0.500
 STEPCOMPRESS_FLUSH_TIME = 0.100 #было 0.050
-SDS_CHECK_TIME = 0.001  # step+dir+step filter in stepcompress.c
+SDS_CHECK_TIME = 0.010  # step+dir+step filter in stepcompress.c #было 0.001
 MOVE_HISTORY_EXPIRE = 30.
 
 DRIP_SEGMENT_TIME = 0.050
