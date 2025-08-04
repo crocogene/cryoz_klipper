@@ -172,10 +172,9 @@ class ResonanceTestExecutor:
                 toolhead.move([nX, nY] + tpos[2:], abs_v)
             else:
                 toolhead.move([nX, nY] + tpos[2:], max(abs_v, abs_last_v))
-            #if math.floor(freq) > math.floor(last_freq):
-            #    gcmd.respond_info("Testing frequency %.0f Hz" % (freq,))
-            #    reactor.pause(reactor.monotonic() + 0.01)
-            reactor.pause(reactor.monotonic() + 0.01) #условие не нужно
+            if math.floor(freq) > math.floor(last_freq):
+                gcmd.respond_info("Testing frequency %.0f Hz" % (freq,))
+                reactor.pause(reactor.monotonic() + 0.01)
             X, Y = nX, nY
             last_t = next_t
             last_v = v
