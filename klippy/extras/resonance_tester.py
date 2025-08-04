@@ -147,7 +147,7 @@ class ResonanceTestExecutor:
             input_shaper = None
         last_v = last_t = last_accel = last_freq = 0.
         for next_t, accel, freq in test_seq:
-            gcmd.respond_info("Testing frequency %.0f Hz" % (freq,)) #вывод перед тестированием
+            #gcmd.respond_info("Testing frequency %.0f Hz" % (freq,)) #вывод перед тестированием
             t_seg = next_t - last_t
             toolhead.cmd_M204(self.gcode.create_gcode_command(
                 "M204", "M204", {"S": abs(accel)}))
@@ -264,7 +264,7 @@ class ResonanceTester:
                 # Generate moves
                 test_seq = self.generator.gen_test()
                 self.executor.run_test(test_seq, axis, gcmd)
-                toolhead.wait_moves() #дождаться завершения движений
+                #toolhead.wait_moves() #дождаться завершения движений
                 for chip_axis, aclient, chip_name in raw_values:
                     aclient.finish_measurements()
                     if raw_name_suffix is not None:
